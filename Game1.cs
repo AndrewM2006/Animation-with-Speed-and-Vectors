@@ -12,12 +12,14 @@ namespace Animation_with_Speed_and_Vectors
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         Texture2D greyTexture;
-        Texture2D brownTexture;
+        Texture2D brownTexture1;
+        Texture2D brownTexture2;
         Texture2D creamTexture;
         Texture2D orangeTexture;
         Texture2D LoraxBG;
         Rectangle greyRect;
-        Rectangle brownRect;
+        Rectangle brownRect1;
+        Rectangle brownRect2;
         Rectangle creamRect;
         Rectangle orangeRect;
         Vector2 greySpeed;
@@ -44,7 +46,8 @@ namespace Animation_with_Speed_and_Vectors
             // TODO: Add your initialization logic here
             Random generator = new Random();
             greyRect = new Rectangle(generator.Next(_graphics.PreferredBackBufferWidth-100), generator.Next(_graphics.PreferredBackBufferHeight-100), 100, 100);
-            brownRect = new Rectangle(generator.Next(_graphics.PreferredBackBufferWidth - 100), generator.Next(_graphics.PreferredBackBufferHeight - 100), 100, 100);
+            brownRect1 = new Rectangle(generator.Next(_graphics.PreferredBackBufferWidth - 100), generator.Next(_graphics.PreferredBackBufferHeight - 100), 100, 100);
+            brownRect2 = new Rectangle(_graphics.PreferredBackBufferWidth+100, 0, 100, 100);
             creamRect = new Rectangle(generator.Next(_graphics.PreferredBackBufferWidth - 100), generator.Next(_graphics.PreferredBackBufferHeight - 100), 100, 100);
             orangeRect = new Rectangle(generator.Next(_graphics.PreferredBackBufferWidth - 100), generator.Next(_graphics.PreferredBackBufferHeight - 100), 100, 100);
             greySpeed = new Vector2(2, 4);
@@ -58,7 +61,8 @@ namespace Animation_with_Speed_and_Vectors
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             greyTexture = Content.Load<Texture2D>("tribbleGrey");
-            brownTexture = Content.Load<Texture2D>("tribbleBrown");
+            brownTexture1 = Content.Load<Texture2D>("tribbleBrown");
+            brownTexture2 = Content.Load<Texture2D>("tribbleBrown");
             creamTexture = Content.Load<Texture2D>("tribbleCream");
             orangeTexture = Content.Load<Texture2D>("tribbleOrange");
             LoraxBG = Content.Load<Texture2D>("Lorax");
@@ -73,7 +77,8 @@ namespace Animation_with_Speed_and_Vectors
                 Exit();
             greyRect.X += (int)greySpeed.X;
             greyRect.Y += (int)greySpeed.Y;
-            brownRect.X += (int)brownSpeed.X;
+            brownRect1.X += (int)brownSpeed.X;
+            brownRect2.X += (int)brownSpeed.X;
             creamRect.Y += (int)creamSpeed.Y;
             orangeRect.X += (int)orangeSpeed.X;
             orangeRect.Y += (int)orangeSpeed.Y;
@@ -115,9 +120,14 @@ namespace Animation_with_Speed_and_Vectors
                 creamRect = new Rectangle(creamRect.Left, creamRect.Top, generator.Next(50, 150), 100);
                 MediaPlayer.Play(coo);
             }
-            if (brownRect.Left > _graphics.PreferredBackBufferWidth)
+            if (brownRect1.Right > _graphics.PreferredBackBufferWidth && brownRect1.Right <= _graphics.PreferredBackBufferWidth + brownSpeed.X)
             {
-                brownRect = new Rectangle(-100, brownRect.Top, 100, 100);
+                brownRect2 = new Rectangle(-100, brownRect1.Top, 100, 100);
+                MediaPlayer.Play(coo);
+            }
+            else if (brownRect2.Right > _graphics.PreferredBackBufferWidth && brownRect2.Right <= _graphics.PreferredBackBufferWidth + brownSpeed.X)
+            {
+                brownRect1 = new Rectangle(-100, brownRect2.Top, 100, 100);
                 MediaPlayer.Play(coo);
             }
             // TODO: Add your update logic here
@@ -133,7 +143,8 @@ namespace Animation_with_Speed_and_Vectors
             _spriteBatch.Begin();
             _spriteBatch.Draw(LoraxBG, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
             _spriteBatch.Draw(greyTexture, greyRect, randomColor);
-            _spriteBatch.Draw(brownTexture, brownRect, Color.White);
+            _spriteBatch.Draw(brownTexture1, brownRect1, Color.White);
+            _spriteBatch.Draw(brownTexture2, brownRect2, Color.White);
             _spriteBatch.Draw(creamTexture, creamRect, Color.White);
             _spriteBatch.Draw(orangeTexture, orangeRect, Color.White);
             _spriteBatch.End();
