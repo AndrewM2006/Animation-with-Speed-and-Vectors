@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Reflection.Emit;
 
@@ -23,6 +24,9 @@ namespace Animation_with_Speed_and_Vectors
         Vector2 brownSpeed;
         Vector2 creamSpeed;
         Vector2 orangeSpeed;
+        byte red = 255, green = 255, blue = 255;
+        Color randomColor;
+        Song coo;
 
         public Game1()
         {
@@ -58,6 +62,7 @@ namespace Animation_with_Speed_and_Vectors
             creamTexture = Content.Load<Texture2D>("tribbleCream");
             orangeTexture = Content.Load<Texture2D>("tribbleOrange");
             LoraxBG = Content.Load<Texture2D>("Lorax");
+            this.coo = Content.Load<Song>("tribble_coo");
             // TODO: use this.Content to load your game content here
         }
 
@@ -75,28 +80,45 @@ namespace Animation_with_Speed_and_Vectors
             if (greyRect.Right > _graphics.PreferredBackBufferWidth || greyRect.Left < 0)
             {
                 greySpeed.X *= -1;
+                red = Convert.ToByte(generator.Next(256)); blue = Convert.ToByte(generator.Next(256)); green = Convert.ToByte(generator.Next(256));
+                randomColor = new Color (red, green, blue);
+                MediaPlayer.Play(coo);
             }
             if (greyRect.Bottom > _graphics.PreferredBackBufferHeight || greyRect.Top < 0)
             {
                 greySpeed.Y *= -1;
+                red = Convert.ToByte(generator.Next(256)); blue = Convert.ToByte(generator.Next(256)); green = Convert.ToByte(generator.Next(256));
+                randomColor = new Color(red, green, blue);
+                MediaPlayer.Play(coo);
             }
             if (orangeRect.Right > _graphics.PreferredBackBufferWidth || orangeRect.Left < 0)
             {
                 orangeRect = new Rectangle(generator.Next(_graphics.PreferredBackBufferWidth - 100), generator.Next(_graphics.PreferredBackBufferHeight - 100), 100, 100);
-                orangeSpeed = new Vector2 (generator.Next (-5, 5), generator.Next (-5, 5));
+                do
+                {
+                    orangeSpeed = new Vector2(generator.Next(-5, 5), generator.Next(-5, 5));
+                } while (orangeSpeed.X == 0 && orangeSpeed.Y == 0);
+                MediaPlayer.Play(coo);
             }
             if (orangeRect.Bottom > _graphics.PreferredBackBufferHeight || orangeRect.Top < 0)
             {
                 orangeRect = new Rectangle(generator.Next(_graphics.PreferredBackBufferWidth - 100), generator.Next(_graphics.PreferredBackBufferHeight - 100), 100, 100);
-                orangeSpeed = new Vector2(generator.Next(-5, 5), generator.Next(-5, 5));
+                do
+                {
+                    orangeSpeed = new Vector2(generator.Next(-5, 5), generator.Next(-5, 5));
+                } while (orangeSpeed.X == 0 && orangeSpeed.Y == 0);
+                MediaPlayer.Play(coo);
             }
             if (creamRect.Bottom > _graphics.PreferredBackBufferHeight ||  creamRect.Top < 0)
             {
                 creamSpeed.Y *= -1;
+                creamRect = new Rectangle(creamRect.Left, creamRect.Top, generator.Next(50, 150), 100);
+                MediaPlayer.Play(coo);
             }
-            if (brownRect.Right > _graphics.PreferredBackBufferWidth ||  brownRect.Left < 0)
+            if (brownRect.Left > _graphics.PreferredBackBufferWidth)
             {
-                brownSpeed.X *= -1;
+                brownRect = new Rectangle(-100, brownRect.Top, 100, 100);
+                MediaPlayer.Play(coo);
             }
             // TODO: Add your update logic here
 
@@ -110,7 +132,7 @@ namespace Animation_with_Speed_and_Vectors
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _spriteBatch.Draw(LoraxBG, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
-            _spriteBatch.Draw(greyTexture, greyRect, Color.White);
+            _spriteBatch.Draw(greyTexture, greyRect, randomColor);
             _spriteBatch.Draw(brownTexture, brownRect, Color.White);
             _spriteBatch.Draw(creamTexture, creamRect, Color.White);
             _spriteBatch.Draw(orangeTexture, orangeRect, Color.White);
