@@ -13,6 +13,37 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin End.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:End.png
+
+#begin EndMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:EndMusic.mp3
+
+#begin Instructions.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Instructions.spritefont
+
+#begin IntroMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:IntroMusic.mp3
+
 #begin Lorax.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -78,4 +109,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tribbleOrange.png
+
+#begin TribbleYard.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TribbleYard.png
 
