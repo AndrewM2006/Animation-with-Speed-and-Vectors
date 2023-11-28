@@ -35,11 +35,9 @@ namespace Animation_with_Speed_and_Vectors
         MouseState mouseState;
         Song coo;
         Song intro;
-        Song end;
+        Song endMusic;
         float seconds;
         float startTime;
-        bool playing;
-
         enum Screen
         {
             Intro,
@@ -72,7 +70,6 @@ namespace Animation_with_Speed_and_Vectors
             brownSpeed = new Vector2(4, 0);
             creamSpeed = new Vector2(0, 4);
             orangeSpeed = new Vector2(4, 2);
-            playing = false;
             base.Initialize();
         }
 
@@ -90,7 +87,7 @@ namespace Animation_with_Speed_and_Vectors
             endBG = Content.Load<Texture2D>("End");
             this.coo = Content.Load<Song>("tribble_coo");
             this.intro = Content.Load<Song>("IntroMusic");
-            this.end = Content.Load<Song>("EndMusic");
+            this.endMusic = Content.Load<Song>("EndMusic");
             MediaPlayer.Play(intro);
             // TODO: use this.Content to load your game content here
         }
@@ -171,14 +168,7 @@ namespace Animation_with_Speed_and_Vectors
                 if (seconds >=10)
                 {
                     screen = Screen.End;
-                }
-            }
-            else if (screen == Screen.End)
-            {
-                if (!playing)
-                {
-                    MediaPlayer.Play(end);
-                    playing = true;
+                    MediaPlayer.Play(endMusic);
                 }
             }
             // TODO: Add your update logic here
